@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Labels</title>
+</head>
+<body>
+    <h1>Print Labels</h1>
+    <form id="labelForm">
+        <label for="item_codes">Enter item codes (comma-separated or newline-separated):</label>
+        <br>
+        <textarea id="item_codes" name="item_codes" rows="10" cols="50"></textarea>
+        <br>
+        <button type="submit">Print Labels</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('labelForm').onsubmit = function(event) {
+            event.preventDefault();
+            let item_codes = document.getElementById('item_codes').value;
+            fetch('/print_labels', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `item_codes=${encodeURIComponent(item_codes)}`,
+            })
+            .then(response => response.json())
+            .then(data => {
+                let resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = '<h2>Results</h2>';
+                let ul = document.createElement('ul');
+                data.forEach(result => {
+                    let li = document.createElement('li');
+                    li.textContent = result;
+                    ul.appendChild(li);
+                });
+                resultDiv.appendChild(ul);
+            });
+        };
+    </script>
+</body>
+</html>

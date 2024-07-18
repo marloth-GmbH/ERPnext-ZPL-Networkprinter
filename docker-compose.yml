@@ -4,6 +4,6 @@ services:
   flask_app:
     build: .
     ports:
-      - "5000:5000"
+      - "8020:5000"
     env_file:
       - .env

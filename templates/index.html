@@ -12,33 +12,42 @@
         <br>
         <textarea id="item_codes" name="item_codes" rows="10" cols="50"></textarea>
         <br>
+        <label for="label_type">Select Label Type:</label>
+        <select name="label_type">
+            <option value="large">Label (groß)</option>
+            <option value="small">Label (klein)</option>
+            <option value="screw">Label Schrauben (klein)</option>
+        </select>
+        <br>
         <button type="submit">Print Labels</button>
     </form>
     <div id="result"></div>
     <script>
         document.getElementById('labelForm').onsubmit = function(event) {
-            event.preventDefault();
-            let item_codes = document.getElementById('item_codes').value;
-            fetch('/print_labels', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `item_codes=${encodeURIComponent(item_codes)}`,
-            })
-            .then(response => response.json())
-            .then(data => {
-                let resultDiv = document.getElementById('result');
-                resultDiv.innerHTML = '<h2>Results</h2>';
-                let ul = document.createElement('ul');
-                data.forEach(result => {
-                    let li = document.createElement('li');
-                    li.textContent = result;
-                    ul.appendChild(li);
-                });
-                resultDiv.appendChild(ul);
-            });
-        };
+    event.preventDefault();
+    let item_codes = document.getElementById('item_codes').value;
+    let label_type = document.querySelector('select[name="label_type"]').value;
+
+    fetch('/print_labels', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `item_codes=${encodeURIComponent(item_codes)}&label_type=${encodeURIComponent(label_type)}`,
+    })
+    .then(response => response.json())
+    .then(data => {
+        let resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = '<h2>Results</h2>';
+        let ul = document.createElement('ul');
+        data.forEach(result => {
+            let li = document.createElement('li');
+            li.textContent = result;
+            ul.appendChild(li);
+        });
+        resultDiv.appendChild(ul);
+    });
+};
     </script>
 </body>
 </html>

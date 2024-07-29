@@ -62,15 +62,15 @@ def create_zpl_label_small(item_name, item_code, supplier_name, supplier_part_no
         ^BQN,2,4
         ^FDQA,{item_code}^FS
 
-        ^FO130,20^A0N,60,65
+        ^FO135,20^A0N,60,65
         ^FB696,2,0,L,0
         ^FD{item_name}^FS
 
-        ^FO20,145^A0N,24,24^FDERP-Teilenummer:^FS
-        ^FO20,175^A0N,30,30^FD{item_code}^FS
+        ^FO20,150^A0N,24,24^FDERP-Teilenummer:^FS
+        ^FO20,180^A0N,30,30^FD{item_code}^FS
 
-        ^FO350,145^A0N,24,24^FD{supplier_name}^FS
-        ^FO350,175^A0N,30,30^FD{supplier_part_no}^FS
+        ^FO400,150^A0N,24,24^FD{supplier_name}^FS
+        ^FO400,180^A0N,30,30^FD{supplier_part_no}^FS
         ^XZ
         """
 def create_zpl_label_small_screw(item_code, screw_norm, screw_thread, screw_length, screw_material, screw_strength, screw_surface):
@@ -80,8 +80,8 @@ def create_zpl_label_small_screw(item_code, screw_norm, screw_thread, screw_leng
         
         ^CF0,130
         ^FO140,24^FB667,2,0,L^FD{screw_thread} x {screw_length}^FS
-        ^BQN,2,4^FO15,0^FDQA,{item_code}^FS
-        ^FO0,140^GB850,3,3^FS
+        ^BQN,2,4^FO15,8^FDQA,{item_code}^FS
+
         
         ^CF0,55
         ^FO20,160^FD{screw_norm}^FS
